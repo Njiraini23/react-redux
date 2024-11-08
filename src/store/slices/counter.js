@@ -16,3 +16,5 @@ export const counterSlice = createSlice({
 })
 
 export const {handleIncreaseCountAction} = counterSlice.actions;
+
+export default counterSlice.reducer;
