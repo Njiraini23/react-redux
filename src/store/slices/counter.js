@@ -8,8 +8,9 @@ export const counterSlice = createSlice({
     name : 'counter',
     initialState,
     reducers : {
-        handleIncreaseCountAction: ()=> {
-
+        handleIncreaseCountAction: (state, action)=> {
+            state.countValue += 1
+            
         }
 
     }
