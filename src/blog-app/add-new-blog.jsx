@@ -36,7 +36,7 @@ function AddNewBlog(){
                     <label>Enter Blog Description</label>
                     <input
                     type="text"
-                    name="Description"
+                    name="D  escription"
                     placeholder="Enter Blog Description" 
                     id="Description"
                     onChange={onChangeInput}

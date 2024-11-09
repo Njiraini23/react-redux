@@ -31,8 +31,12 @@ export const blogSlice = createSlice({
                 title : '',
                 description : '',
             };
+            localStorage.getItem('blogList', JSON.stringigy(state.blogList));
         },
+        setBlogListOnInitialLoad : (state, action)=> {
+            state.blogList = action.payload.blogList;
+        }
     },
 });
-export const {handleInputChange, handleAddTodo} = blogSlice.actions
+export const {handleInputChange, handleAddTodo, setBlogListOnInitialLoad} = blogSlice.actions
 export default blogSlice.reducer
