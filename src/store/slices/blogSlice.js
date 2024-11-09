@@ -5,7 +5,8 @@ const initialState = {
         title : '',
         description : '',
     },
-    blogList : [],
+    blogList: [],
+    currentEditedBlogId: null,
 };
 
 export const blogSlice = createSlice({
@@ -31,12 +32,54 @@ export const blogSlice = createSlice({
                 title : '',
                 description : '',
             };
-            localStorage.getItem('blogList', JSON.stringigy(state.blogList));
+            localStorage.getItem('blogList', JSON.stringify(state.blogList));
         },
         setBlogListOnInitialLoad : (state, action)=> {
             state.blogList = action.payload.blogList;
+        },
+
+        handleDeleteBlog: (state, action) => {
+            console.log(action.payload);
+            const { payload } = action;
+            const { CurrentBlogId } = payload;
+
+            let cpyBlogList = [...state.blogList];
+            cpyBlogList = cpyBlogList.filter(singleBlogItem => singleBlogItem.id !== CurrentBlogId);
+            state.blogList = cpyBlogList;   
+            localStorage.setItem('blogList', JSON.stringify(cpyBlogList) )
+        },
+        setCurrentEditedBlogId : (state, action) =>{
+            console.log(action.payload);
+            const { payload } = action;
+            const { CurrentBlogId } = payload;
+
+            state.currentEditedBlogId = CurrentBlogId;
+        },
+
+        handleEditBlog: (state, action)=>{
+            console.log('handle blog is called');
+
+            let cpyBlogList = [...state.blogList];
+            const findIndexOfCurrentBlogItem = cpyBlogList.findIndex
+            (singleBlogItem=> singleBlogItem.id === state.currentEditedBlogId
+            );
+            console.log(findIndexOfCurrentBlogItem);
+
+            cpyBlogList[findIndexOfCurrentBlogItem] = {
+                ...cpyBlogList[findIndexOfCurrentBlogItem],
+                ...state.formData
+            }
+            state.blogList = cpyBlogList;
+            localStorage.setItem('blogList', JSON.stringify(cpyBlogList));
         }
     },
 });
-export const {handleInputChange, handleAddTodo, setBlogListOnInitialLoad} = blogSlice.actions
+export const {
+    handleInputChange, 
+    handleAddTodo, 
+    setBlogListOnInitialLoad,
+    handleDeleteBlog,
+    setCurrentEditedBlogId,
+    handleEditBlog,
+} = blogSlice.actions
 export default blogSlice.reducer
