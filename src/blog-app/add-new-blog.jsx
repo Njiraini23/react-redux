@@ -8,7 +8,8 @@ function AddNewBlog(){
     const dispatch = useDispatch();
 
     function onChangeInput(event){
-        dispatch(handleInputChange({
+        dispatch(
+            handleInputChange({
             [event.target.name] : event.target.value,
         }))
     }

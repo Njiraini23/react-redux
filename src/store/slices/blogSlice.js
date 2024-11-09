@@ -1,33 +1,36 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
-    FormData : {
+    formData : {
         title : '',
         description : '',
     },
-    blogList : []
-}
+    blogList : [],
+};
 
 export const blogSlice = createSlice({
     name : 'blog',
     initialState, 
     reducers : {
         handleInputChange: (state, action)=> {
-            console.log(action);
+            
             let cpyFormData = {...state.formData };
             cpyFormData = {
                 ...cpyFormData,
-                ...action.payload
+                ...action.payload,
             };
             state.formData = cpyFormData;
         },
-        handleAddTodo : (state, action)=> {
+        handleAddTodo : (state, action) => {
             console.log(action);
             state.blogList.push({
                 id : nanoid(),
-                ...state.formData
+                ...state.formData,
             });
-            
+            state.formData = {
+                title : '',
+                description : '',
+            };
         },
     },
 });
